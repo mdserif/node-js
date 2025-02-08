@@ -11,3 +11,7 @@
 1738988784976 : /about?myname=mdserif&jobid=123 : New Request Received
 1738988844261 : /about?myname=roni&jobid=123 : New Request Received
 1738988931639 : /home?hi=hello+world : New Request Received
+1739024033174 : / : / : New Request Received
+1739024041744 : /about : /about : New Request Received
+1739024091486 : /signup : /signup : New Request Received
+1739024450970 : GET : / : New Request Received
