@@ -4,11 +4,13 @@ PORT = 8000;
 const users = require("./MOCK_DATA.json")
 const fs = require("fs");
 
-
 //Middleware
 app.use(express.urlencoded({extended:false}))
 
+//REST API
 app.get("/api/users",(req,res)=>{
+    res.setHeader("X-MyName","Md Serif") // custom header
+    //always use X to custom headers
     return res.json(users)
 })
 
