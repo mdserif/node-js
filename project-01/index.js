@@ -18,7 +18,8 @@ app.route("/api/users/:id")
 .get((req,res)=>{
     const id= Number(req.params.id)
     const user = users.find((user)=> user.id === id)
-    return res.json(user)
+    if(!user) return res.status(404).json({error:"user not defined"})
+    return res.json(user);
 })
 .patch((req,res)=>{
     
@@ -38,7 +39,7 @@ app.post("/api/users/",(req,res)=>{
     const body = req.body;
     users.push({...body, id:users.length+1});
     fs.writeFile("./MOCK_DATA.json",JSON.stringify(users),(err,data)=>{
-        return res.json({status:"Success", id :users.length})
+        return res.status(201).json({status:"User created successfully", id :users.length})
     })
 
 })
