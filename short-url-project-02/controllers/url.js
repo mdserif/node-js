@@ -9,6 +9,7 @@ const handleGenerateNewShortURL = async (req,res) => {
     await URL.create({shortId:shortID,redirectURL:body.url,visitHistory:[]
     })
 
+    return res.render("home",{id:shortID})
     return res.json({id:shortID})
 }
 
@@ -35,7 +36,6 @@ const handleGetAnalytics = async (req,res) =>{
         analytics: result.visitHistory,
     })
 }
-
 
 
 module.exports = {
