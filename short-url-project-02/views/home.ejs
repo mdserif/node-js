@@ -37,7 +37,9 @@
         <button type="submit">Generate</button>
       </form>
     </div>
+
     <div>
+      <% if (locals.urls) { %>
       <table>
         <tr>
           <th>Sl.No</th>
@@ -56,6 +58,7 @@
 
         <% }) %>
       </table>
+      <% } %>
     </div>
   </body>
 </html>
