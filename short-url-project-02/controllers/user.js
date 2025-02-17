@@ -21,11 +21,20 @@ const handleUserLogin = async (req,res) =>{
     if(!email||!password) return res.json({msg:"Please provide valid email and password"})
     const user = await User.findOne({email,password})
     if(!user) return res.render("login",{error:"Email or Password is Invalid"})
+    
+    // session based auth using cookie
     // const sessionId = uuidv4();
     // setUser(sessionId,user);
     // res.cookie("uid",sessionId);
+
+    //jwt auth using cookie
+    // const token = setUser(user);
+    // res.cookie("uid",token);
+    // return res.redirect("/");
+
+    // jwt using authorization header
     const token = setUser(user);
-    res.cookie("uid",token);
+    res.cookie("token", token);
     return res.redirect("/");
 }
 

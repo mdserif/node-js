@@ -3,7 +3,9 @@ require('dotenv').config()
 const path = require("path")
 const cookieParser = require("cookie-parser");
 const connectToMongoDb = require('./connection')
-const {restrictToLoggedinUserOnly,checkAuth} = require ("./middlewares/auth")
+//const {restrictToLoggedinUserOnly,checkAuth} = require ("./middlewares/auth")
+const {checkForAuthentication,restrictTo} = require("./middlewares/auth")
+
 
 const app = express();
 PORT = 8001;
@@ -21,10 +23,12 @@ app.set("views",path.resolve("./views"))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser())
+app.use(checkForAuthentication);
 
-app.use('/url',restrictToLoggedinUserOnly,urlRoute);
+// app.use('/url',restrictToLoggedinUserOnly,urlRoute);
+app.use('/url',restrictTo(["NORMAL","ADMIN"]),urlRoute);
 app.use('/user',userRoute)
-app.use('/', checkAuth, staticRoute);
+app.use('/', staticRoute);
 
 
 app.listen(PORT,()=>{console.log(`server is running on port ${PORT}`)})
