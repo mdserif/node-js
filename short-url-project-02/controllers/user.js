@@ -4,6 +4,7 @@ const {setUser} = require("../service/auth")
 
 const handleUserSignUp = async (req,res)=> {
     const { name,email,password} = req.body;
+    if(!name||!email||!password) return res.json({msg:"all field are required"})
     const user = await User.findOne({email})
     if(user) return res.json({msg:"User already registered, please go to login page"})
     await User.create({
@@ -17,12 +18,14 @@ const handleUserSignUp = async (req,res)=> {
 
 const handleUserLogin = async (req,res) =>{
     const {email,password} = req.body;
+    if(!email||!password) return res.json({msg:"Please provide valid email and password"})
     const user = await User.findOne({email,password})
-    // console.log("user",user)
     if(!user) return res.render("login",{error:"Email or Password is Invalid"})
-    const sessionId = uuidv4();
-    setUser(sessionId,user);
-    res.cookie("uid",sessionId);
+    // const sessionId = uuidv4();
+    // setUser(sessionId,user);
+    // res.cookie("uid",sessionId);
+    const token = setUser(user);
+    res.cookie("uid",token);
     return res.redirect("/");
 }
 
